@@ -65,11 +65,10 @@ This includes routes for:
 - [`POST /api/bookings`](#)
 - [`GET /api/users`](#)
 
-##🧪 Running Tests
- ###
- Tests are located in:
+## 🧪 Running Tests
+### Tests are located in:
  src/__tests__/
- ### Run the tests
+### Run the tests
   npm test
- ### Or run tests in watch mode:
+### Or run tests in watch mode:
   npm run test:watch  
