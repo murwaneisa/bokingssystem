@@ -1,40 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 📆 Bokningssystem för Mötesrum
 
-## Getting Started
+A fullstack room booking system built with **Next.js** (frontend & API), **SQLite + Prisma** for the database, and a fully documented Swagger UI.
 
-First, run the development server:
+This app allows users to:
+- View available meeting rooms and time slots
+- Filter by room and date
+- Book available slots
+- Confirm bookings
+- Manage everything through a REST API
+
+---
+
+## 🔧 Backend Overview
+
+This project uses **Next.js API Routes** as the backend. Each route is defined under:
+
+
+Prisma is used to manage a local SQLite database (`dev.db`), including migrations, seeding, and querying.
+
+---
+
+## 🛠 Technologies Used
+
+| Tool / Library         | Purpose                          |
+|------------------------|----------------------------------|
+| **Next.js**            | Fullstack framework (frontend + API) |
+| **TypeScript**         | Type safety                      |
+| **Prisma**             | ORM for SQLite                   |
+| **SQLite**             | Lightweight database             |
+| **Swagger UI**         | API documentation                |
+| **Jest + Supertest**   | API testing                      |
+| **Tailwind CSS**       | Styling frontend (optional)      |
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+git clone https://github.com/YOUR_USERNAME/bokningssystem.git
+cd bokningssystem
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependence
+ npm install
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### 3. Setup the Database
+ npx prisma migrate dev --name init
+ npx prisma db seed
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 4. Start the Dev Server
+ npm run dev
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 📘API Documentation
+Swagger UI is available at:
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+http://localhost:3000/swagger
 
-## Learn More
+This includes routes for:
 
-To learn more about Next.js, take a look at the following resources:
+- [`GET /api/rooms`](#)
+- [`GET /api/timeslots/filter`](#)
+- [`POST /api/bookings`](#)
+- [`GET /api/users`](#)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 🧪 Running Tests
+### Tests are located in:
+ src/__tests__/
+### Run the tests
+  npm test
+### Or run tests in watch mode:
+  npm run test:watch  
