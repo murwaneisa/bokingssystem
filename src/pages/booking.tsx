@@ -1,23 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import RoomDropdown from '@/components/RoomDropdown'
 import { useRooms } from '@/hooks/api';
 import TimeSlotTable from '@/components/TimeSlotTable';
+import Spinner from '@/components/UI/spinner';
 
 const booking =()=> {
   const {data:roomList, error, isLoading} = useRooms()
-   /*  const roomList = [
-        { id: 1, name: "Margret", capacity: 4 },
-        { id: 2, name: "Steve", capacity: 6 },
-        { id: 3, name: "Ada", capacity: 10 },
-        { id: 4, name: "Edmund", capacity: 10 },
-        { id: 5, name: "Grace", capacity: 20 },
-      ]; */
-
       if (error) return <div>Error loading rooms</div>;
-    
-    const handleRoomSelect = (selected: number[]) => {
-        console.log("Selected room IDs:", selected);
+      const [selectedRoomIds, setSelectedRoomIds] = useState<number[]>([]);
+
+      const handleRoomSelect = (selected: number[]) => {
+        setSelectedRoomIds(selected);
       };
+    
     
     return (
         <div className="flex flex-col items-start lg:items-center  p-4 min-h-screen bg-[#ECECEC] text-text">
@@ -25,12 +20,12 @@ const booking =()=> {
           Välj en tid
         </h1>
         {isLoading ? (
-        <p className="text-gray-500">🔄 Laddar rum...</p>
+        <Spinner/>
       ) : roomList ? (
         <>
         <RoomDropdown rooms={roomList} onSelect={handleRoomSelect} />
         <div className='mt-6'>
-        <TimeSlotTable/>
+        <TimeSlotTable selectedRoomIds={selectedRoomIds}/>
         </div>
         </>
       ) : (
