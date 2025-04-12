@@ -12,3 +12,22 @@ export const fetcher = async <T>(endpoint: string): Promise<T> => {
   if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
   return res.json();
 };
+
+
+export async function postRequest<TInput, TOutput>(
+  url: string,
+  { arg }: { arg: TInput }
+): Promise<TOutput> {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(arg),
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Something went wrong');
+  }
+
+  return res.json();
+}

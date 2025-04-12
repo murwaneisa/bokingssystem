@@ -1,5 +1,3 @@
-// src/pages/api/bookings.ts
-
 import { prisma } from '@/lib/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -8,6 +6,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
+  console.log('Received payload:', req.body);
+
   const { userName, timeSlotId, roomId } = req.body;
 
   if (!userName || !timeSlotId || !roomId) {
@@ -15,14 +15,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    // Check if the time slot is available
     const slot = await prisma.timeSlot.findUnique({ where: { id: timeSlotId } });
 
     if (!slot || slot.isBooked) {
       return res.status(400).json({ message: 'Time slot already booked' });
     }
 
-    // Create booking with userName
     const booking = await prisma.booking.create({
       data: {
         userName,
@@ -31,18 +29,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
-    // Mark the timeslot as booked
     await prisma.timeSlot.update({
       where: { id: timeSlotId },
       data: {
         isBooked: true,
-        booking: { connect: { id: booking.id } },
       },
     });
 
     res.status(201).json({ message: 'Booking successful', bookingId: booking.id });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error });
+    console.error('Booking API error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 }

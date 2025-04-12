@@ -1,6 +1,7 @@
 import { Booking, Room, TimeSlot, TimeslotQuery, User } from "@/types/api";
 import useSWR from "swr";
-import { fetcher } from "@/lib/fetcher";
+import { fetcher, postRequest } from "@/lib/fetcher";
+import useSWRMutation from "swr/mutation";
 
 
   // ✅ Hook for fetching users
@@ -31,3 +32,13 @@ export const useUsers = () =>
   
     return useSWR<TimeSlot[]>(url, (url:string) => fetcher<TimeSlot[]>(url));
   };
+
+  interface BookingPayload {
+    userName: string;
+    timeSlotId: number;
+    roomId: number;
+  }
+  
+  export function useBookingMutation() {
+    return useSWRMutation('/api/bookings', postRequest<BookingPayload, { bookingId: number; message: string }>);
+  }
