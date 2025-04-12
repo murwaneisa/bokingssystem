@@ -38,8 +38,9 @@ Prisma is used to manage a local SQLite database (`dev.db`), including migration
 
 ### 1. Clone the Project
 
-```bash
-git clone https://github.com/YOUR_USERNAME/bokningssystem.git
+
+git clone https://github.com/murwaneisa/bokingssystem.git
+
 cd bokningssystem
 
 ### 2. Install Dependence
@@ -47,7 +48,14 @@ cd bokningssystem
 
 ### 3. Setup the Database
  npx prisma migrate dev --name init
+ 
+#### seed the database with data 
+
  npx prisma db seed
+
+#### View the seeded data in Prisma Ui
+
+ npx prisma studio
 
 ### 4. Start the Dev Server
  npm run dev
@@ -55,7 +63,7 @@ cd bokningssystem
 ## 📘API Documentation
 Swagger UI is available at:
 
-```bash
+
 http://localhost:3000/swagger
 
 This includes routes for:
@@ -70,5 +78,7 @@ This includes routes for:
  src/__tests__/
 ### Run the tests
   npm test
+### Run the tests coverage 
+  npm run test:coverage
 ### Or run tests in watch mode:
   npm run test:watch  
