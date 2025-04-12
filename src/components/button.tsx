@@ -11,7 +11,7 @@ interface ButtonProps {
       <button
         type={type}
         onClick={onClick}
-        className={`w-full cursor-pointer bg-primary text-white text-sm rounded-xl py-3 hover:bg-gray-800 transition duration-200 ${className}`}
+        className={`w-full cursor-pointer bg-[#1D1D1D] text-white text-sm rounded-xl py-3 hover:bg-gray-800 transition duration-200 ${className}`}
       >
         {children}
       </button>
