@@ -18,11 +18,11 @@ export const getSwaggerSpec = (): OpenAPIV3.Document => ({
         },
       },
     },
-  
+
     "/api/timeslots/filter": {
       get: {
         summary: "Get available time slots",
-        description: "Returns available (not booked) time slots filtered by room(s) and date range.",
+        description: "Returns time slots filtered by room(s) and date range.",
         parameters: [
           {
             name: "start",
@@ -48,7 +48,7 @@ export const getSwaggerSpec = (): OpenAPIV3.Document => ({
               items: { type: "integer" },
             },
             style: "form",
-            explode: true
+            explode: true,
           }
         ],
         responses: {
@@ -58,11 +58,11 @@ export const getSwaggerSpec = (): OpenAPIV3.Document => ({
         },
       },
     },
-  
+
     "/api/bookings": {
       post: {
         summary: "Book a meeting room",
-        description: "Creates a booking for a specific user, room, and time slot.",
+        description: "Creates a booking using userName, roomId, and timeSlotId.",
         requestBody: {
           required: true,
           content: {
@@ -70,11 +70,11 @@ export const getSwaggerSpec = (): OpenAPIV3.Document => ({
               schema: {
                 type: "object",
                 properties: {
-                  userId: { type: "integer" },
+                  userName: { type: "string" },
                   roomId: { type: "integer" },
                   timeSlotId: { type: "integer" },
                 },
-                required: ["userId", "roomId", "timeSlotId"],
+                required: ["userName", "roomId", "timeSlotId"],
               },
             },
           },
@@ -82,48 +82,23 @@ export const getSwaggerSpec = (): OpenAPIV3.Document => ({
         responses: {
           "201": {
             description: "Booking successful",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    bookingId: { type: "integer" },
+                    message: { type: "string" }
+                  }
+                }
+              }
+            }
           },
           "400": {
             description: "Time slot is already booked or invalid data",
           },
         },
       },
-    },
-  
-    "/api/bookings/{id}": {
-      get: {
-        summary: "Get booking confirmation",
-        description: "Returns booking details for confirmation by ID.",
-        parameters: [
-          {
-            name: "id",
-            in: "path",
-            required: true,
-            description: "Booking ID",
-            schema: { type: "integer" },
-          },
-        ],
-        responses: {
-          "200": {
-            description: "Booking details returned",
-          },
-          "404": {
-            description: "Booking not found",
-          },
-        },
-      },
-    },
-  
-    "/api/users": {
-      get: {
-        summary: "Get all users",
-        description: "Returns a list of all registered users.",
-        responses: {
-          "200": {
-            description: "Successful response with users",
-          },
-        },
-      },
-    }
+    }, 
   }
 });

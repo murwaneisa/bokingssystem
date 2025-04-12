@@ -1,3 +1,4 @@
+// pages/api/timeslots/filter.ts
 import { prisma } from '@/lib/prisma';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -22,7 +23,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           gte: startDate,
           lte: endDate,
         },
-        isBooked: false,
         ...(roomIds
           ? {
               roomId: {
@@ -36,10 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       include: {
         room: true,
       },
-      orderBy: [
-        { date: 'asc' },
-        { startTime: 'asc' },
-      ],
+      orderBy: [{ date: 'asc' }, { startTime: 'asc' }],
     });
 
     res.status(200).json(timeslots);
