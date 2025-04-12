@@ -46,8 +46,14 @@ cd bokningssystem
 ### 2. Install Dependence
  npm install
 
+
 ### 3. Setup the Database
  npx prisma migrate dev --name init
+
+### 3. add the environment variables
+in the  .env file in the root directory add :
+DATABASE_URL="file:./[your database file]" for example "dev.db"
+NEXT_PUBLIC_API_URL="http://yourlocalhot/api"  for example http://localhost:3000/api
  
 #### seed the database with data 
 
