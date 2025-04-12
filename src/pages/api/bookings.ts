@@ -6,8 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  console.log('Received payload:', req.body);
-
   const { userName, timeSlotId, roomId } = req.body;
 
   if (!userName || !timeSlotId || !roomId) {

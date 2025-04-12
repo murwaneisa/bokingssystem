@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/button";
+import Button from "@/components/UI/button";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 
 interface Room {

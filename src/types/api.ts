@@ -33,4 +33,10 @@ export interface Room {
     isBooked: boolean;
     room: Room;
   }
+
+  export interface BookingPayload {
+    userName: string;
+    timeSlotId: number;
+    roomId: number;
+  }
   
