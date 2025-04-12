@@ -3,21 +3,7 @@ const { PrismaClient } = require('../src/generated/prisma');
 const prisma = new PrismaClient();
 
 async function main() {
-  // Seed Users
-  const users = await prisma.user.createMany({
-    data: [
-      { name: 'Victoria Norling', email: 'victoria@abc.com' },
-      { name: 'John Doe', email: 'john@xyz.com' },
-      { name: 'Alice Johnson', email: 'alice@example.com' },
-      { name: 'Bob Smith', email: 'bob@example.com' },
-      { name: 'Emily Davis', email: 'emily@example.com' },
-      { name: 'Michael Brown', email: 'michael@example.com' },
-      { name: 'Lisa Martin', email: 'lisa@example.com' },
-      { name: 'Daniel Lee', email: 'daniel@example.com' },
-    ],
-  });
-
-  // Seed Rooms (from Figma)
+  // ✅ Seed Rooms (from Figma)
   const roomsData = [
     { name: 'Ada', capacity: 10, features: ['Whiteboard', 'TV'] },
     { name: 'Steve', capacity: 6, features: ['Whiteboard'] },
@@ -26,12 +12,12 @@ async function main() {
     { name: 'Grace', capacity: 20, features: ['Whiteboard', 'Projector'] },
   ];
 
-  const roomPromises = roomsData.map(room =>
+  const roomPromises = roomsData.map((room) =>
     prisma.room.create({ data: room })
   );
   const rooms = await Promise.all(roomPromises);
 
-  // Define 3 seed days: today, tomorrow, day after
+  // ✅ Define 30 days starting today
   const baseDate = new Date();
   const dates = Array.from({ length: 30 }, (_, i) => {
     const d = new Date(baseDate);
@@ -40,7 +26,7 @@ async function main() {
     return d;
   });
 
-  // Figma-like time slots: 08:00 – 17:00, one-hour intervals
+  // ✅ Time ranges like Figma
   const timeRanges = [
     ['08:00', '09:00'],
     ['09:00', '10:00'],
@@ -52,6 +38,7 @@ async function main() {
     ['16:00', '17:00'],
   ];
 
+  // ✅ Create TimeSlots
   for (const room of rooms) {
     for (const date of dates) {
       for (const [start, end] of timeRanges) {
@@ -76,12 +63,12 @@ async function main() {
     }
   }
 
-  console.log('Database seeded with users, rooms, and time slots!');
+  console.log('✅ Seed complete: rooms and time slots!');
 }
 
 main()
   .catch((e) => {
-    console.error('Error seeding:', e);
+    console.error('❌ Error seeding:', e);
     process.exit(1);
   })
   .finally(async () => {

@@ -8,9 +8,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const { userId, timeSlotId, roomId } = req.body;
+  const { userName, timeSlotId, roomId } = req.body;
 
-  if (!userId || !timeSlotId || !roomId) {
+  if (!userName || !timeSlotId || !roomId) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
@@ -22,12 +22,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ message: 'Time slot already booked' });
     }
 
-    // Create booking
+    // Create booking with userName
     const booking = await prisma.booking.create({
-      data: { userId, timeSlotId, roomId },
+      data: {
+        userName,
+        timeSlotId,
+        roomId,
+      },
     });
 
-    // Mark slot as booked
+    // Mark the timeslot as booked
     await prisma.timeSlot.update({
       where: { id: timeSlotId },
       data: {

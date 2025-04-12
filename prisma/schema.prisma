@@ -14,13 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  email     String    @unique
-  bookings  Booking[]
-}
-
 model Room {
   id         Int         @id @default(autoincrement())
   name       String
@@ -43,10 +36,10 @@ model TimeSlot {
 
 model Booking {
   id         Int       @id @default(autoincrement())
-  userId     Int
+  userName   String
   timeSlotId Int       @unique
-  roomId     Int       
-  user       User      @relation(fields: [userId], references: [id])
+  roomId     Int
   timeSlot   TimeSlot  @relation(fields: [timeSlotId], references: [id])
   room       Room      @relation(fields: [roomId], references: [id])
 }
+
