@@ -77,7 +77,6 @@ This includes routes for:
 - [`GET /api/rooms`](#)
 - [`GET /api/timeslots/filter`](#)
 - [`POST /api/bookings`](#)
-- [`GET /api/users`](#)
 
 ## 🧪 Running Tests
 ### Tests are located in:
