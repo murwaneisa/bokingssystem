@@ -44,7 +44,9 @@ git clone https://github.com/murwaneisa/bokingssystem.git
 cd bokningssystem
 
 ### 2. Install Dependence
- npm install
+ npm install --legacy-peer-deps
+ 
+This project uses `npm install --legacy-peer-deps` to resolve dependency conflicts with Swagger packages that don't yet support React 19.
 
 
 ### 3. Setup the Database
