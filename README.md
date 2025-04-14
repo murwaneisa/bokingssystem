@@ -48,14 +48,13 @@ cd bokningssystem
  
 This project uses `npm install --legacy-peer-deps` to resolve dependency conflicts with Swagger packages that don't yet support React 19.
 
-
-### 3. Setup the Database
- npx prisma migrate dev --name init
-
 ### 3. add the environment variables
 in the  .env file in the root directory add :
 DATABASE_URL="file:./[your database file]" for example "dev.db"
 NEXT_PUBLIC_API_URL="http://yourlocalhot/api"  for example http://localhost:3000/api
+
+### 3. Setup the Database
+ npx prisma migrate dev --name init
  
 #### seed the database with data 
 
